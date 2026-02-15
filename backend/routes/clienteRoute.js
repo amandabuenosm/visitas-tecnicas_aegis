@@ -1,11 +1,11 @@
 const express = require('express');
-const rota = express.Router();
+const rotaCliente = express.Router();
 const controller = require('../controllers/clienteController');
 
-rota.get('/', controller.getAll);
-rota.get('/:id', controller.getById);
-rota.post('/', controller.create);
-rota.put('/:id', controller.update);
-rota.delete('/:id', controller.delete);
+rotaCliente.get('/', controller.getAll);
+rotaCliente.get('/:id', controller.getById);
+rotaCliente.post('/', controller.create);
+rotaCliente.put('/:id', controller.update);
+rotaCliente.delete('/:id', controller.delete);
 
-module.exports = rota;
+module.exports = rotaCliente;
