@@ -30,7 +30,10 @@ const Cliente = {
     },
 
     delete(id, callback) {
-        db.run('DELETE FROM clientes WHERE id = ?', [id], callback);
+        db.run('DELETE FROM clientes WHERE id = ?', [id], function(err) {
+            if (err) { return callback(err); }
+            callback(null, { affectedRows: this.changes });
+        });
     }
 }
 

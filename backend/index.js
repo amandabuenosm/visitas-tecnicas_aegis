@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const modelCliente = require('./models/clienteModel');
 const modelTecnico = require('./models/tecnicoModel');
+const modelOrdemServ = require('./models/ordemservModel');
 
 const app = express();
 
@@ -10,12 +11,15 @@ app.use(express.json());
 
 modelCliente.createTable();
 modelTecnico.createTable();
+modelOrdemServ.createTable();
 
 const rotaCliente = require('./routes/clienteRoute');
 const rotaTecnico = require('./routes/tecnicoRoute');
+const rotaOrdemServ = require('./routes/ordemservRoute');
 
 app.use('/clientes', rotaCliente);
 app.use('/tecnicos', rotaTecnico);
+app.use('/ordemservs', rotaOrdemServ);
 
 const PORT = 3000;
 

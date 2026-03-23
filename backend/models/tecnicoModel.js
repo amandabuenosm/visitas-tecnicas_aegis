@@ -7,9 +7,7 @@ const Tecnico = {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
             especialidade TEXT NOT NULL,
-            telefone TEXT NOT NULL,
-            ordemserv_id INTEGER,
-			FOREIGN KEY (ordemserv_id) REFERENCES ordemservicos(id))`
+            telefone TEXT NOT NULL)`
         );
     },
 
@@ -22,15 +20,18 @@ const Tecnico = {
     },
 
     create(tecnico, callback) {
-        db.run('INSERT INTO tecnicos (nome, especialidade, telefone, ordemserv_id) VALUES (?, ?, ?, ?)', [tecnico.nome, tecnico.especialidade, tecnico.telefone, tecnico.ordemserv_id], callback);
+        db.run('INSERT INTO tecnicos (nome, especialidade, telefone) VALUES (?, ?, ?)', [tecnico.nome, tecnico.especialidade, tecnico.telefone], callback);
     },
 
     update(id, tecnico, callback) {
-        db.run('UPDATE tecnicos SET nome = ?, especialidade = ?, telefone = ?, ordemserv_id = ? WHERE id = ?', [tecnico.nome, tecnico.especialidade, tecnico.telefone, tecnico.ordemserv_id, id], callback);
+        db.run('UPDATE tecnicos SET nome = ?, especialidade = ?, telefone = ? WHERE id = ?', [tecnico.nome, tecnico.especialidade, tecnico.telefone, id], callback);
     },
 
     delete(id, callback) {
-        db.run('DELETE FROM tecnicos WHERE id = ?', [id], callback);
+        db.run('DELETE FROM tecnicos WHERE id = ?', [id], function(err) {
+            if (err) { return callback(err); }
+            callback(null, { affectedRows: this.changes });
+        });
     }
 }
 
